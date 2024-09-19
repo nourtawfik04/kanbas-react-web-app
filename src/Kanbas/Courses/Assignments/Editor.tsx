@@ -2,6 +2,7 @@ export default function AssignmentEditor() {
   return (
     <div id="wd-assignments-editor">
       <label htmlFor="wd-name">Assignment Name</label>
+      <br />
       <input id="wd-name" value="A1 - ENV + HTML" />
       <br />
       <br />
@@ -10,15 +11,14 @@ export default function AssignmentEditor() {
       </textarea>
       <br />
       <table>
+        <br />
         <tr>
           <td align="left" valign="top">
             <label htmlFor="wd-points">Points</label>
-          </td>
-          <td>
             <input id="wd-points" value={100} />
           </td>
         </tr>
-
+        <br />
         <tr>
           <td align="left" valign="top">
             <label htmlFor="wd-group">Assignment Group</label>
@@ -27,7 +27,7 @@ export default function AssignmentEditor() {
             </select>
           </td>
         </tr>
-
+        <br />
         <tr>
           <td align="left" valign="top">
             <label htmlFor="wd-display-grade-as">Display Grade As</label>
@@ -36,7 +36,7 @@ export default function AssignmentEditor() {
             </select>
           </td>
         </tr>
-
+        <br />
         <tr>
           <td align="left" valign="top">
             <label htmlFor="wd-submission-type">Submission Type</label>
@@ -45,7 +45,7 @@ export default function AssignmentEditor() {
             </select>
           </td>
         </tr>
-
+        <br />
         <tr>
           <label>Online Entry Options</label>
           <br />
@@ -62,14 +62,18 @@ export default function AssignmentEditor() {
           <label htmlFor="wd-chkbox-scifi">Media Recordings</label>
           <br />
 
-          <input type="checkbox" name="check-entry" id="wd-student-annotation" />
+          <input
+            type="checkbox"
+            name="check-entry"
+            id="wd-student-annotation"
+          />
           <label htmlFor="wd-chkbox-fantasy">Student Annotation</label>
           <br />
 
           <input type="checkbox" name="check-entry" id="wd-file-upload" />
           <label htmlFor="wd-chkbox-scifi">File Uploads</label>
         </tr>
-
+        <br />
         <tr>
           <td align="left" valign="top">
             <label htmlFor="wd-assign-to">Assign</label>
@@ -78,14 +82,14 @@ export default function AssignmentEditor() {
             <input id="wd-assign-to" placeholder="Everyone" />
           </td>
         </tr>
-
+        <br />
         <tr>
           <label htmlFor="wd-due-date"> Due </label>
           <br />
           <input type="date" id="due-date" value="2024-13-05" />
           <br />
         </tr>
-
+        <br />
         <tr>
           <label htmlFor="wd-available-from"> Available from </label>
           <label htmlFor="wd-text-available-until"> Until </label>
@@ -95,6 +99,11 @@ export default function AssignmentEditor() {
           <br />
         </tr>
       </table>
+      < br />
+            <div className="buttons">
+        <button className="control-button cancel">Cancel</button>
+        <button className="control-button save">Save</button>
+      </div>
     </div>
   );
 }

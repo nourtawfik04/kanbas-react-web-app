@@ -14,11 +14,11 @@ export default function Assignments() {
             href="#/Kanbas/Courses/1234/Assignments/123"
           >
             A1 - ENV + HTML
+            <br />
           </a>
-          <p id="wd-p-2">
-            Multiple Modules | Not available until May 6 at 12:00am | Due May 13
-            at 11:59pm | 100 pts
-          </p>
+          Multiple Modules | Not available until May 6 at 12:00am |
+          <br />
+          Due May 13 at 11:59pm | 100 pts
         </li>
         <li className="wd-assignment-list-item">
           <a
@@ -26,11 +26,11 @@ export default function Assignments() {
             href="#/Kanbas/Courses/1234/Assignments/123"
           >
             A2 - CSS + BOOTSTRAP
+            <br />
           </a>
-          <p id="wd-p-2">
-            Multiple Modules | Not available until May 13 at 12:00am | Due May
-            20 at 11:59pm | 100 pts
-          </p>
+          Multiple Modules | Not available until May 13 at 12:00am |
+          <br />
+          Due May 20 at 11:59pm | 100 pts
         </li>
         <li className="wd-assignment-list-item">
           <a
@@ -38,11 +38,11 @@ export default function Assignments() {
             href="#/Kanbas/Courses/1234/Assignments/123"
           >
             A3 - JAVASCRIPT + REACT
+            <br />
           </a>
-          <p id="wd-p-2">
-            Multiple Modules | Not available until May 20 at 12:00am | Due May 27
-            at 11:59pm | 100 pts
-          </p>
+          Multiple Modules | Not available until May 20 at 12:00am |
+          <br />
+          Due May 27 at 11:59pm | 100 pts
         </li>
       </ul>
     </div>

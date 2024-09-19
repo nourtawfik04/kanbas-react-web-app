@@ -29,7 +29,7 @@ export default function Dashboard() {
             <div>
               <h5>C3000 Algorithms</h5>
               <p className="wd-dashboard-course-title">
-                Full Stack software developer
+                Machine Learning Researcher
               </p>
               <button> Go </button>
             </div>
@@ -44,7 +44,7 @@ export default function Dashboard() {
             <div>
               <h5>CS3500 OOD</h5>
               <p className="wd-dashboard-course-title">
-                Full Stack software developer
+                Software Engineer
               </p>
               <button> Go </button>
             </div>
@@ -57,9 +57,9 @@ export default function Dashboard() {
           >
             <img src="/images/c4.png" alt="" width={200} />
             <div>
-              <h5>CS1234 React JS</h5>
+              <h5>CS3214 Database Design</h5>
               <p className="wd-dashboard-course-title">
-                Full Stack software developer
+                Data Analyst
               </p>
               <button> Go </button>
             </div>
@@ -72,9 +72,9 @@ export default function Dashboard() {
           >
             <img src="/images/c5.png" alt="" width={200} />
             <div>
-              <h5>CS1234 React JS</h5>
+              <h5>CS2000  Fundies</h5>
               <p className="wd-dashboard-course-title">
-                Full Stack software developer
+                Back-End Software Engineer
               </p>
               <button> Go </button>
             </div>
@@ -87,9 +87,9 @@ export default function Dashboard() {
           >
             <img src="/images/c6.png" alt="" width={200} />
             <div>
-              <h5>CS1234 React JS</h5>
+              <h5>CS1000 Co-op Class</h5>
               <p className="wd-dashboard-course-title">
-                Full Stack software developer
+                Product Designer
               </p>
               <button> Go </button>
             </div>
@@ -102,9 +102,9 @@ export default function Dashboard() {
           >
             <img src="/images/c6.png" alt="" width={200} />
             <div>
-              <h5>CS1234 React JS</h5>
+              <h5>CS1500 Discrete Structures</h5>
               <p className="wd-dashboard-course-title">
-                Full Stack software developer
+                Electrical Engineer
               </p>
               <button> Go </button>
             </div>

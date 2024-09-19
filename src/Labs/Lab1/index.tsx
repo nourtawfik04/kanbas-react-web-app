@@ -34,6 +34,9 @@ export default function Lab1() {
           tag to tell browsers to render the gaps.
         </p>
       </div>
+      <h4>List Tags</h4>
+      <h5>Ordered List Tag</h5>
+      How to make pancakes:
       <ol id="wd-pancakes">
         <li>Mix dry ingredients.</li>
         <li>Add wet ingredients.</li>
@@ -44,6 +47,7 @@ export default function Lab1() {
         <li>Flip and cook the other side.</li>
         <li>Serve and enjoy!</li>
       </ol>
+      How to make brownies:
       <ol id="wd-brownies">
         <li>Mix eggs, water, oil</li>
         <li>Add dry mix from Betty Crocker</li>
@@ -106,37 +110,37 @@ export default function Lab1() {
             <tr>
               <td>Q5</td>
               <td>HTML</td>
-              <td>2/3/21</td>
+              <td>2/4/21</td>
               <td>85</td>
             </tr>
             <tr>
               <td>Q6</td>
-              <td>HTML</td>
-              <td>2/3/21</td>
+              <td>Chemistry</td>
+              <td>3/1/21</td>
               <td>65</td>
             </tr>
             <tr>
               <td>Q7</td>
-              <td>HTML</td>
-              <td>2/3/21</td>
+              <td>English</td>
+              <td>1/3/21</td>
               <td>82</td>
             </tr>
             <tr>
               <td>Q8</td>
               <td>Algo</td>
-              <td>2/3/21</td>
+              <td>2/6/21</td>
               <td>75</td>
             </tr>
             <tr>
               <td>Q9</td>
               <td>Bio</td>
-              <td>2/3/21</td>
+              <td>9/3/21</td>
               <td>95</td>
             </tr>
             <tr>
               <td>Q10</td>
               <td>Physics</td>
-              <td>2/3/21</td>
+              <td>1/10/21</td>
               <td>100</td>
             </tr>
           </tbody>
@@ -320,10 +324,16 @@ export default function Lab1() {
         <a id="wd-lipsum" href="https://www.lipsum.com">
           click here
         </a>
-        <a id="wd-github" href="https://github.com/nourtawfik04">
+        to get dummy text
+        <br />
+        Please
+        <a
+          id="wd-lipsum"
+          href="https://github.com/nourtawfik04/kanbas-react-web-app.git"
+        >
           click here
         </a>
-        to get dummy text
+        to get github repository
         <br />
       </div>
     </div>
