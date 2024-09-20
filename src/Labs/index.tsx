@@ -7,6 +7,7 @@ export default function Labs() {
   return (
     <div>
       <h1>Nour Tawfik</h1>
+      <h1>CS5610.20596.202510</h1>
       <h1>Labs</h1>
       <TOC />
       <Routes>
