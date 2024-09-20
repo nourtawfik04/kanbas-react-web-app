@@ -1,4 +1,5 @@
 import { Routes, Route, Navigate } from "react-router";
+import Home from "../Home";
 import Account from "./Account";
 import Courses from "./Courses";
 import Dashboard from "./Dashboard";
