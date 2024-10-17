@@ -2,23 +2,20 @@ import { BsGripVertical } from "react-icons/bs";
 import ModulesControls from "./ModulesControls";
 import LessonControlButtons from "./LessonControlButtons";
 import { useParams } from "react-router";
-import * as db from "../../Database"; // Import modules from database
+import * as db from "../../Database"; 
 
 export default function Modules() {
-  const { cid } = useParams(); // Retrieve course ID from URL parameters
-  const modules = db.modules; // Assuming modules are stored in the database
+  const { cid } = useParams(); 
+  const modules = db.modules; 
 
   return (
     <div className="modules-container">
-      {/* Control buttons */}
       <div className="controls mb-4">
         <button className="btn btn-secondary me-2">Collapse All</button>
         <button className="btn btn-secondary me-2">View Progress</button>
         <button className="btn btn-secondary me-2">Publish All</button>
         <button className="btn btn-primary">+ Module</button>
       </div>
-
-      {/* Filter and map through modules based on the course ID */}
       <ul id="wd-modules" className="list-group rounded-0">
         {modules
           .filter((module) => module.course === cid)
@@ -31,8 +28,6 @@ export default function Modules() {
                 <BsGripVertical className="me-2 fs-3" />
                 {module.name} <ModulesControls />
               </div>
-
-              {/* Check if the module contains lessons and render them */}
               {module.lessons && (
                 <ul className="wd-lessons list-group rounded-0">
                   {module.lessons.map((lesson) => (
