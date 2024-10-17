@@ -1,21 +1,20 @@
 import { BiSearch, BiDotsVerticalRounded, BiPlus } from "react-icons/bi";
 import { FaCheckCircle } from "react-icons/fa";
 import { BsFileText } from "react-icons/bs";
-import { Link, useParams } from "react-router-dom"; // Import useParams and Link from react-router-dom
-import * as db from "../../Database"; // Import assignments from the Database
+import { Link, useParams } from "react-router-dom"; 
+import * as db from "../../Database"; 
 
 export default function Assignments() {
-  const { cid } = useParams(); // Get course ID from the URL parameters
-  const assignments = db.assignments; // Assuming assignments are imported from Database
+  const { cid } = useParams(); 
+  const assignments = db.assignments; 
 
-  // Filter the assignments based on the current course ID
   const filteredAssignments = assignments.filter(
     (assignment) => assignment.course === cid
   );
 
   return (
     <div id="wd-assignments" className="p-4">
-      {/* Search and Add Controls */}
+
       <div className="d-flex justify-content-between align-items-center mb-4">
         <div className="d-flex align-items-center">
           <BiSearch className="fs-4 me-2" />
@@ -36,7 +35,6 @@ export default function Assignments() {
         </div>
       </div>
 
-      {/* Assignments Title */}
       <h3
         id="wd-assignments-title"
         className="d-flex justify-content-between align-items-center border-bottom pb-2"
@@ -50,7 +48,6 @@ export default function Assignments() {
         </span>
       </h3>
 
-      {/* Assignment List */}
       <ul id="wd-assignment-list" className="list-unstyled mt-4">
         {filteredAssignments.length > 0 ? (
           filteredAssignments.map((assignment) => (
@@ -60,7 +57,6 @@ export default function Assignments() {
             >
               <BsFileText className="fs-4 text-success me-3" />
               <div className="flex-grow-1">
-                {/* Link to Assignment using course ID and assignment ID */}
                 <Link
                   to={`/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}
                   className="wd-assignment-link text-decoration-none fw-bold"
