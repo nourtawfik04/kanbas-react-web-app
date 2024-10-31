@@ -6,12 +6,11 @@ import Assignments from "./Assignments";
 import AssignmentEditor from "./Assignments/Editor";
 import { FaAlignJustify } from "react-icons/fa";
 import PeopleTable from "./People/Table";
-import { courses } from "../Database";
 
-export default function Courses() {
-    const { cid } = useParams();
+export default function Courses({ courses }: { courses: any[] }) {
+  const { cid } = useParams();
   const course = courses.find((course) => course._id === cid);
-    const { pathname } = useLocation();
+  const { pathname } = useLocation();
 
   return (
     <div id="wd-courses">
