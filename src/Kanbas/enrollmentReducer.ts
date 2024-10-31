@@ -1,32 +1,54 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { enrollments as initialEnrollments } from "./Database";
 
-const initialState = {
-  enrollments: [] as Array<{ course: string; user: string }>,
-  currentUser: null,
+// Define the type for enrollment entries
+interface Enrollment {
+  _id: string;
+  user: string;
+  course: string;
+}
+
+interface EnrollmentState {
+  enrollments: Enrollment[];
+}
+
+const initialState: EnrollmentState = {
+  enrollments: initialEnrollments,
 };
 
 const enrollmentSlice = createSlice({
-  name: "enrollment",
+  name: "enrollments",
   initialState,
   reducers: {
-    setEnrollments: (state, action) => {
-      state.enrollments = action.payload;
+    enroll: (
+      state,
+      action: PayloadAction<{ userId: string; courseId: string }>
+    ) => {
+      // Create a new enrollment object with a generated unique ID
+      const newEnrollment: Enrollment = {
+        _id: new Date().getTime().toString(), // Generate a unique ID using timestamp
+        user: action.payload.userId,
+        course: action.payload.courseId,
+      };
+      state.enrollments.push(newEnrollment);
+      localStorage.setItem("enrollments", JSON.stringify(state.enrollments));
     },
-    enrollCourse: (state, action) => {
-      state.enrollments.push(
-        action.payload as { course: string; user: string }
-      );
-    },
-    unenrollCourse: (state, action) => {
+    unenroll: (
+      state,
+      action: PayloadAction<{ userId: string; courseId: string }>
+    ) => {
+      // Remove the enrollment that matches both userId and courseId
       state.enrollments = state.enrollments.filter(
         (enrollment) =>
-          enrollment.course !== action.payload.course ||
-          enrollment.user !== action.payload.user
+          !(
+            enrollment.user === action.payload.userId &&
+            enrollment.course === action.payload.courseId
+          )
       );
+      localStorage.setItem("enrollments", JSON.stringify(state.enrollments));
     },
   },
 });
 
-export const { setEnrollments, enrollCourse, unenrollCourse } =
-  enrollmentSlice.actions;
+export const { enroll, unenroll } = enrollmentSlice.actions;
 export default enrollmentSlice.reducer;

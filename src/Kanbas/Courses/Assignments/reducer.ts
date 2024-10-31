@@ -13,43 +13,40 @@ export interface Assignment {
   group: string;
   submissionType: string;
 }
-
+console.log("Imported assignments from db:", db.assignments);
 interface AssignmentsState {
   assignments: Assignment[];
 }
-
 const initialState: AssignmentsState = {
-  assignments: db.assignments,
+  assignments: db.assignments || [],
 };
-
 const assignmentsSlice = createSlice({
   name: "assignments",
   initialState,
   reducers: {
-    addAssignment: (state, { payload }) => {
+    addAssignment: (state, action: PayloadAction<Omit<Assignment, "_id">>) => {
       const newAssignment: Assignment = {
-        _id: new Date().getTime().toString(),
-        title: payload.title,
-        course: payload.course,
-        dueDate: payload.dueDate,
-        points: payload.points,
-        assignTo: payload.assignTo,
-        notAvailableUntil: payload.notAvailableUntil,
-        description: payload.description,
-        group: payload.group,
-        submissionType: payload.submissionType,
+        _id: new Date().getTime().toString(), 
+        ...action.payload,
       };
-      state.assignments = [...state.assignments, newAssignment];
+      state.assignments.push(newAssignment);
     },
-    deleteAssignment: (state, { payload: assignmentId }) => {
+
+    deleteAssignment: (state, action: PayloadAction<string>) => {
+      const assignmentId = action.payload;
       state.assignments = state.assignments.filter(
         (assignment) => assignment._id !== assignmentId
       );
     },
-    updateAssignment: (state, { payload }) => {
-      state.assignments = state.assignments.map((assignment) =>
-        assignment._id === payload._id ? payload : assignment
+
+    updateAssignment: (state, action: PayloadAction<Assignment>) => {
+      const updatedAssignment = action.payload;
+      const index = state.assignments.findIndex(
+        (assignment) => assignment._id === updatedAssignment._id
       );
+      if (index !== -1) {
+        state.assignments[index] = updatedAssignment;
+      }
     },
   },
 });
