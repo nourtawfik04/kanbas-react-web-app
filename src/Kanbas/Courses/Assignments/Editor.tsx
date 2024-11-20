@@ -1,15 +1,14 @@
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addAssignment, updateAssignment } from "./reducer";
-import * as db from "../../Database";
+import { setAssignments } from "./reducer";
 
 export default function AssignmentEditor() {
   const { cid, aid } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const assignments = useSelector(
-    (state: any) => state.assignmentsReducer?.assignments ?? []
+    (state: any) => state.assignmentsReducer.assignments
   );
 
   const existingAssignment = assignments.find((a: { _id: string | undefined; }) => a._id === aid);
@@ -33,16 +32,12 @@ export default function AssignmentEditor() {
   }, [existingAssignment]);
 
   const handleSave = () => {
-    if (existingAssignment) {
-      dispatch(updateAssignment({ ...assignment }));
-    } else {
-      dispatch(addAssignment({ ...assignment }));
-    }
+    dispatch(setAssignments(assignment));
     navigate(`/Kanbas/Courses/${cid}/Assignments`);
   };
 
   const handleCancel = () => {
-    navigate(`/Kanbas/Courses/${cid}/Assignments`);
+    navigate('/Kanbas/Courses/${cid}/Assignments');
   };
 
   return (

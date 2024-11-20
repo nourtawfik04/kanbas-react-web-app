@@ -4,8 +4,10 @@ import { BiSearch, BiDotsVerticalRounded, BiPlus } from "react-icons/bi";
 import { FaCheckCircle } from "react-icons/fa";
 import { BsFileText } from "react-icons/bs";
 import { IoTrash } from "react-icons/io5";
-import { addAssignment, deleteAssignment, updateAssignment } from "./reducer";
+import { useEffect } from "react";
+import { setAssignments, addAssignment, deleteAssignment, updateAssignment } from "./reducer";
 import { Assignment } from "./reducer";
+import * as coursesClient from "../client";
 
 interface RootState {
   assignmentsReducer: {
@@ -19,14 +21,18 @@ export default function Assignments() {
   const dispatch = useDispatch();
 
   const assignments = useSelector(
-    (state: RootState) => state.assignmentsReducer.assignments
+    (state: any) => state.assignmentsReducer.assignments
   );
+
+  useEffect(() => {
+    dispatch(setAssignments(assignments));
+  }, [dispatch]);
 
   const filteredAssignments = assignments.filter(
-    (assignment) => assignment.course === cid
+    (assignment : any) => assignment.course === cid
   );
 
-  const handleDelete = (assignmentId: string) => {
+  const handleDelete = (assignmentId: any) => {
     const isConfirmed = window.confirm(
       "Are you sure you want to delete this assignment?"
     );
@@ -37,10 +43,6 @@ export default function Assignments() {
 
   const handleAddAssignment = () => {
     navigate(`/Kanbas/Courses/${cid}/Assignments/new`);
-  };
-
-  const handleEditAssignment = (assignmentId: string) => {
-    navigate(`/Kanbas/Courses/${cid}/Assignments/${assignmentId}/edit`);
   };
 
   return (
@@ -83,7 +85,7 @@ export default function Assignments() {
 
       <ul id="wd-assignment-list" className="list-unstyled mt-4">
         {filteredAssignments && filteredAssignments.length > 0 ? (
-          filteredAssignments.map((assignment) => (
+          filteredAssignments.map((assignment: any) => (
             <li
               key={assignment._id}
               className="wd-assignment-list-item d-flex align-items-start p-3 mb-3 border-start border-3 border-success"

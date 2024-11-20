@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { enrollments as initialEnrollments } from "./Database";
 
-// Define the type for enrollment entries
 interface Enrollment {
   _id: string;
   user: string;
@@ -24,9 +23,8 @@ const enrollmentSlice = createSlice({
       state,
       action: PayloadAction<{ userId: string; courseId: string }>
     ) => {
-      // Create a new enrollment object with a generated unique ID
       const newEnrollment: Enrollment = {
-        _id: new Date().getTime().toString(), // Generate a unique ID using timestamp
+        _id: new Date().getTime().toString(), 
         user: action.payload.userId,
         course: action.payload.courseId,
       };
@@ -37,7 +35,6 @@ const enrollmentSlice = createSlice({
       state,
       action: PayloadAction<{ userId: string; courseId: string }>
     ) => {
-      // Remove the enrollment that matches both userId and courseId
       state.enrollments = state.enrollments.filter(
         (enrollment) =>
           !(

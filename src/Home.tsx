@@ -23,6 +23,9 @@ function Home() {
         <li>
           <Link to="/Labs/Lab4">Lab 4</Link>
         </li>
+                <li>
+          <Link to="/Labs/Lab5">Lab 5</Link>
+        </li>
         <li>
           <Link to="/Kanbas">Kanbas</Link>
         </li>
