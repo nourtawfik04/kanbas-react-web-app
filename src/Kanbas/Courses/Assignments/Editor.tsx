@@ -2,6 +2,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setAssignments } from "./reducer";
+import * as coursesClient from "../client";
+import * as assignmentClient from "./client";
+
 
 export default function AssignmentEditor() {
   const { cid, aid } = useParams();
@@ -31,10 +34,21 @@ export default function AssignmentEditor() {
     }
   }, [existingAssignment]);
 
-  const handleSave = () => {
-    dispatch(setAssignments(assignment));
+const handleSave = async () => {
+  try {
+    if (aid) {
+      await assignmentClient.updateAssignment(cid!, assignment); 
+    } else {
+      await coursesClient.createAssignmentForCourse(cid!, assignment); 
+    }
+    const updatedAssignments = await coursesClient.findAssignmentsForCourse(cid!);
+    dispatch(setAssignments(updatedAssignments));
     navigate(`/Kanbas/Courses/${cid}/Assignments`);
-  };
+  } catch (error) {
+    console.error("Error saving assignment:", error);
+    alert("Failed to save assignment. Please try again.");
+  }
+};
 
   const handleCancel = () => {
     navigate('/Kanbas/Courses/${cid}/Assignments');

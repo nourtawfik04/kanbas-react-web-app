@@ -13,7 +13,6 @@ export interface Assignment {
   group: string;
   submissionType: string;
 }
-console.log("Imported assignments from db:", db.assignments);
 interface AssignmentsState {
   assignments: Assignment[];
 }
@@ -24,9 +23,9 @@ const assignmentsSlice = createSlice({
   name: "assignments",
   initialState,
   reducers: {
-    setAssignments: (state, action: PayloadAction<Assignment[]>) => {
-      state.assignments = action.payload;
-    },
+setAssignments: (state, action: PayloadAction<Assignment[]>) => {
+  state.assignments = action.payload;
+},
     addAssignment: (state, action: PayloadAction<Omit<Assignment, "_id">>) => {
       const newAssignment: Assignment = {
         _id: new Date().getTime().toString(),

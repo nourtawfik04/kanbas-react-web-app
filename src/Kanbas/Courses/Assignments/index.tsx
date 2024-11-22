@@ -20,13 +20,16 @@ export default function Assignments() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const assignments = useSelector(
-    (state: any) => state.assignmentsReducer.assignments
-  );
+const assignments = useSelector((state: RootState) => state.assignmentsReducer.assignments);
 
-  useEffect(() => {
+  const fetchAssignments = async () => {
+    const assignments = await coursesClient.findAssignmentsForCourse(cid as string);
     dispatch(setAssignments(assignments));
-  }, [dispatch]);
+  };
+  useEffect(() => {
+    fetchAssignments();
+  }, []);
+
 
   const filteredAssignments = assignments.filter(
     (assignment : any) => assignment.course === cid

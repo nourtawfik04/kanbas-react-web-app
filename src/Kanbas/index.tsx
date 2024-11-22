@@ -21,18 +21,18 @@ const [courses, setCourses] = useState<any[]>([]);
     endDate: "2023-12-15",
     description: "New Description",
   });
-    const { currentUser } = useSelector((state: any) => state.accountReducer);
-    const fetchCourses = async () => {
-      try {
-        const courses = await userClient.findMyCourses();
-        setCourses(courses);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    useEffect(() => {
-      fetchCourses();
-    }, [currentUser]);
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
+  const fetchCourses = async () => {
+    try {
+      const courses = await userClient.findMyCourses();
+      setCourses(courses);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    fetchCourses();
+  }, [currentUser]);
 
   const addNewCourse = async () => {
         const newCourse = await userClient.createCourse(course);

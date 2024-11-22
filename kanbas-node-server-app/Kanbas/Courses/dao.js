@@ -6,13 +6,11 @@ export function findAllCourses() {
 export function findCoursesForEnrolledUser(userId) {
   const { courses, enrollments } = Database;
   const enrolledCourses = courses.filter((course) =>
-    enrollments.some(
-      (enrollment) =>
-        enrollment.user === userId && enrollment.course === course._id
-    )
-  );
+    enrollments.some((enrollment) => enrollment.user === userId && enrollment.course === course._id));
+  console.log("courses" + enrolledCourses)
   return enrolledCourses;
 }
+
 
 export function createCourse(course) {
   const newCourse = { ...course, _id: Date.now().toString() };

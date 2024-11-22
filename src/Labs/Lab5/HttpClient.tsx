@@ -10,7 +10,7 @@ export default function HttpClient() {
   const fetchWelcomeOnClick = async () => {
     const message = await client.fetchWelcomeMessage();
     setWelcomeOnClick(message);
-
+  }
       const fetchWelcomeOnLoad = async () => {
         const welcome = await client.fetchWelcomeMessage();
         setWelcomeOnLoad(welcome);
@@ -35,4 +35,4 @@ export default function HttpClient() {
     </div>
   );
   }
-}
+
