@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import React from "react";
 import { useSelector } from "react-redux";
-import * as db from "./Database";
 
 export default function Dashboard({
   courses,
@@ -19,25 +18,12 @@ export default function Dashboard({
   updateCourse: () => void;
 }) {
   const { currentUser } = useSelector((state: any) => state.accountReducer);
-  const { enrollments } = db;
-
-  const userCourses =
-    currentUser && enrollments
-      ? courses.filter((course) =>
-          enrollments.some(
-            (enrollment) =>
-              enrollment?.user === currentUser._id &&
-              enrollment?.course === course._id
-          )
-        )
-      : [];
 
   return (
     <div className="p-4" id="wd-dashboard">
       <h1 id="wd-dashboard-title">Dashboard</h1>
       <hr />
 
-      {/* Only show the new course form and update button for FACULTY users */}
       {currentUser?.role === "FACULTY" && (
         <>
           <h5>
@@ -76,12 +62,12 @@ export default function Dashboard({
 
       <div id="wd-dashboard-courses" className="container-fluid">
         <h2 id="wd-dashboard-published" className="text-center my-4">
-          Published Courses ({userCourses.length})
+          Published Courses ({courses.length})
         </h2>
         <hr />
 
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-          {userCourses.map((course) => (
+          {courses.map((course) => (
             <div
               className="wd-dashboard-course col"
               key={course._id}
@@ -107,7 +93,6 @@ export default function Dashboard({
                     </p>
                     <button className="btn btn-primary">Go</button>
 
-                    {/* Only show delete and edit buttons for FACULTY users */}
                     {currentUser?.role === "FACULTY" && (
                       <>
                         <button
