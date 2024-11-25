@@ -1,6 +1,8 @@
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { enrollInCourse, setEnrollments, unenrollFromCourse } from "./enrollmentReducer"; 
+import * as enrollmentsClient from "./enrollmentClient";
 
 export default function Dashboard({
   courses,
@@ -18,6 +20,52 @@ export default function Dashboard({
   updateCourse: () => void;
 }) {
   const { currentUser } = useSelector((state: any) => state.accountReducer);
+  const { enrolledCourses } = useSelector((state: any) => state.enrollmentReducer); 
+  const dispatch = useDispatch();
+
+  const [showAllCourses, setShowAllCourses] = useState(true);
+
+  const toggleEnrollmentView = () => {
+    setShowAllCourses(!showAllCourses);
+  };
+
+const handleEnroll = async (courseId: string) => {
+  try {
+    await enrollmentsClient.enrollInCourse(currentUser._id, courseId); 
+    dispatch(enrollInCourse(courseId)); 
+  } catch (error) {
+    console.error("Error enrolling in course:", error);
+  }
+};
+
+const handleUnenroll = async (courseId: string) => {
+  try {
+    await enrollmentsClient.unenrollFromCourse(currentUser._id, courseId); 
+    dispatch(unenrollFromCourse(courseId));
+  } catch (error) {
+    console.error("Error unenrolling from course:", error);
+  }
+};
+
+useEffect(() => {
+  const fetchEnrollments = async () => {
+    try {
+      const enrollments = await enrollmentsClient.getUserEnrollments(currentUser._id);
+      const enrolledCourseIds = enrollments.map((enrollment: { course: any; }) => enrollment.course);
+      dispatch(setEnrollments(enrolledCourseIds)); 
+    } catch (error) {
+      console.error("Error fetching enrollments:", error);
+    }
+  };
+  fetchEnrollments();
+}, [currentUser._id, dispatch]);
+
+  const isEnrolled = (courseId: string) => enrolledCourses.includes(courseId);
+
+  const visibleCourses = showAllCourses
+    ? courses
+    : courses.filter((course) => enrolledCourses.includes(course._id));
+
 
   return (
     <div className="p-4" id="wd-dashboard">
@@ -60,14 +108,27 @@ export default function Dashboard({
         </>
       )}
 
+      {currentUser?.role === "STUDENT" && (
+        <>
+          <button
+            className="btn btn-primary float-end"
+            onClick={toggleEnrollmentView}
+          >
+            {showAllCourses ? "Enrollments" : "All Courses"}
+          </button>
+          <br />
+        </>
+      )}
+
       <div id="wd-dashboard-courses" className="container-fluid">
         <h2 id="wd-dashboard-published" className="text-center my-4">
-          Published Courses ({courses.length})
+          {showAllCourses ? "All Courses" : "Enrolled Courses"} (
+          {visibleCourses.length})
         </h2>
         <hr />
 
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-          {courses.map((course) => (
+          {visibleCourses.map((course) => (
             <div
               className="wd-dashboard-course col"
               key={course._id}
@@ -75,8 +136,20 @@ export default function Dashboard({
             >
               <div className="card rounded-3 overflow-hidden shadow-sm">
                 <Link
-                  className="wd-dashboard-course-link text-decoration-none text-dark"
+                  className={`wd-dashboard-course-link text-decoration-none ${
+                    currentUser?.role === "STUDENT" && !isEnrolled(course._id)
+                      ? "disabled-link"
+                      : "text-dark"
+                  }`}
                   to={`/Kanbas/Courses/${course._id}/Home`}
+                  onClick={(e) => {
+                    if (
+                      currentUser?.role === "STUDENT" &&
+                      !isEnrolled(course._id)
+                    ) {
+                      e.preventDefault();
+                    }
+                  }}
                 >
                   <img
                     src={course.image || "/images/c4.png"}
@@ -93,28 +166,29 @@ export default function Dashboard({
                     </p>
                     <button className="btn btn-primary">Go</button>
 
-                    {currentUser?.role === "FACULTY" && (
+                    {currentUser?.role === "STUDENT" && (
                       <>
-                        <button
-                          onClick={(event) => {
-                            event.preventDefault();
-                            deleteCourse(course._id);
-                          }}
-                          className="btn btn-danger float-end"
-                          id="wd-delete-course-click"
-                        >
-                          Delete
-                        </button>
-                        <button
-                          id="wd-edit-course-click"
-                          onClick={(event) => {
-                            event.preventDefault();
-                            setCourse(course);
-                          }}
-                          className="btn btn-warning me-2 float-end"
-                        >
-                          Edit
-                        </button>
+                        {!isEnrolled(course._id) ? (
+                          <button
+                            className="btn btn-success float-end"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handleEnroll(course._id);
+                            }}
+                          >
+                            Enroll
+                          </button>
+                        ) : (
+                          <button
+                            className="btn btn-danger float-end"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handleUnenroll(course._id);
+                            }}
+                          >
+                            Unenroll
+                          </button>
+                        )}
                       </>
                     )}
                   </div>
@@ -127,3 +201,4 @@ export default function Dashboard({
     </div>
   );
 }
+
