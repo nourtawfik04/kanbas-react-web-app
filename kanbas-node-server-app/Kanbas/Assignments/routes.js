@@ -34,17 +34,20 @@
 import * as assignmentsDao from "./dao.js";
 
 export default function AssignmentRoutes(app) {
-  app.post("/api/assignments", (req, res) => {
-    try {
-      const newAssignment = req.body;
-      const createdAssignment = assignmentsDao.createAssignment(newAssignment);
-      res.status(201).send(createdAssignment);
-    } catch (error) {
-      console.error("Error creating assignment:", error);
-      res.status(500).send({ error: "Internal Server Error" });
+app.post("/api/assignments", (req, res) => {
+  try {
+    console.log("Assignment creation payload:", req.body); // Debugging
+    const newAssignment = req.body;
+    if (!newAssignment.course) {
+      return res.status(400).send({ error: "Course ID is required." });
     }
-  });
-
+    const createdAssignment = assignmentsDao.createAssignment(newAssignment);
+    res.status(201).send(createdAssignment);
+  } catch (error) {
+    console.error("Error creating assignment:", error);
+    res.status(500).send({ error: "Internal Server Error" });
+  }
+});
   app.get("/api/assignments/:courseId", (req, res) => {
     try {
       const { courseId } = req.params;

@@ -37,11 +37,15 @@ export default function AssignmentEditor() {
 const handleSave = async () => {
   try {
     if (aid) {
-      await assignmentClient.updateAssignment(cid!, assignment); 
+      // Update existing assignment
+      await assignmentClient.updateAssignment(aid, assignment); 
     } else {
-      await coursesClient.createAssignmentForCourse(cid!, assignment); 
+      // Create new assignment with course ID
+      await assignmentClient.createAssignment({ ...assignment, course: cid });
     }
-    const updatedAssignments = await coursesClient.findAssignmentsForCourse(cid!);
+
+    // Fetch updated assignments
+    const updatedAssignments = await assignmentClient.findAssignmentsForCourse(cid!);
     dispatch(setAssignments(updatedAssignments));
     navigate(`/Kanbas/Courses/${cid}/Assignments`);
   } catch (error) {
@@ -49,6 +53,7 @@ const handleSave = async () => {
     alert("Failed to save assignment. Please try again.");
   }
 };
+
 
   const handleCancel = () => {
     navigate('/Kanbas/Courses/${cid}/Assignments');

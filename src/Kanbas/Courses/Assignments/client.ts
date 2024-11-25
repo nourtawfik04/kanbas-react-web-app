@@ -39,7 +39,6 @@ import axios from "axios";
 const REMOTE_SERVER = process.env.REACT_APP_REMOTE_SERVER;
 const ASSIGNMENTS_API = `${REMOTE_SERVER}/api/assignments`;
 
-// Fetch assignments for a specific course
 export const findAssignmentsForCourse = async (courseId: string) => {
   try {
     const response = await axios.get(`${ASSIGNMENTS_API}/${courseId}`);
@@ -51,10 +50,6 @@ export const findAssignmentsForCourse = async (courseId: string) => {
   }
 };
 
-
-
-// Update an assignment
-// Update an assignment
 export const updateAssignment = async (assignmentId: string, assignment: any) => {
   try {
     const response = await axios.put(`${ASSIGNMENTS_API}/${assignmentId}`, assignment);
@@ -65,7 +60,7 @@ export const updateAssignment = async (assignmentId: string, assignment: any) =>
   }
 };
 
-// Delete an assignment
+
 export const deleteAssignment = async (assignmentId: string) => {
   try {
     const response = await axios.delete(`${ASSIGNMENTS_API}/${assignmentId}`);
@@ -76,7 +71,6 @@ export const deleteAssignment = async (assignmentId: string) => {
   }
 };
 
-// Create a new assignment
 export const createAssignment = async (assignment: any) => {
   try {
     const response = await axios.post(ASSIGNMENTS_API, assignment);
@@ -86,6 +80,7 @@ export const createAssignment = async (assignment: any) => {
     throw error;
   }
 };
+
 export function createAssignmentForCourse(arg0: string, assignment: any) {
   throw new Error("Function not implemented.");
 }

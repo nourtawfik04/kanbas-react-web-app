@@ -42,10 +42,14 @@ export function deleteAssignment(assignmentId) {
 }
 
 export function createAssignment(assignment) {
+  if (!assignment.course) {
+    throw new Error("Course ID is required to create an assignment.");
+  }
   const newAssignment = { ...assignment, _id: Date.now().toString() };
   Database.assignments = [...Database.assignments, newAssignment];
   return newAssignment;
 }
+
 
 export function findAssignmentsForCourse(courseId) {
   const { assignments } = Database;
