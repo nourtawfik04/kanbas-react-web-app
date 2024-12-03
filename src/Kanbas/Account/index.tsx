@@ -4,6 +4,7 @@ import Profile from "./Profile";
 import Signin from "./SignIn";
 import Signup from "./Signup";
 import { useSelector } from "react-redux";
+import Users from "./Users";
 
 export default function Account() {
   const { currentUser } = useSelector((state: any) => state.accountReducer);
@@ -32,6 +33,7 @@ export default function Account() {
                 />
                 <Route path="/Signin" element={<Signin />} />
                 <Route path="/Signup" element={<Signup />} />
+                  <Route path="/Users" element={<Users />} />
                 <Route path="/Profile" element={<Profile />} />
               </Routes>
             </td>

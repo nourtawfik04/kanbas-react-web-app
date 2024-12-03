@@ -52,3 +52,7 @@ export const signout = async () => {
 };
 
 
+
+export function findAllUsers() {
+    throw new Error("Function not implemented.");
+}

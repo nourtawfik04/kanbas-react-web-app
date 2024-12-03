@@ -1,4 +1,6 @@
 import express from "express";
+import mongoose from "mongoose";
+import "dotenv/config";
 import Lab5 from "./Lab5/index.js";
 import session from "express-session";
 import UserRoutes from "./Kanbas/Users/routes.js";
@@ -9,6 +11,8 @@ import AssignmentRoutes from "./Kanbas/Assignments/routes.js";
 import cors from "cors";
 import EnrollmentRoutes from "./Kanbas/Enrollments/routes.js";
 
+const CONNECTION_STRING = process.env.MONGO_CONNECTION_STRING || "mongodb+srv://Cluster39106:dW57THpJVWR5@cluster39106.hxzzh.mongodb.net/"
+mongoose.connect(CONNECTION_STRING);
 const app = express();
 app.use(
   cors({
