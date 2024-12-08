@@ -35,6 +35,7 @@ export default function Account() {
                 <Route path="/Signup" element={<Signup />} />
                   <Route path="/Users" element={<Users />} />
                 <Route path="/Profile" element={<Profile />} />
+  <Route path="/Users/:uid" element={<Users />} />
               </Routes>
             </td>
           </tr>
